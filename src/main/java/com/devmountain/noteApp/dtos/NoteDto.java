@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class NoteDto implements Serializable {
     private Long id;
     private String body;
-    private String userDto;
+    private UserDto userDto;
 
     public NoteDto(Note note){
         if (note.getId() != null){
