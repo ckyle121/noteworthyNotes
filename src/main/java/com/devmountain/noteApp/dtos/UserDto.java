@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -18,9 +19,9 @@ public class UserDto implements Serializable {
     private String password;
     private Set<NoteDto> noteDtoSet = new HashSet<>();
 
-    private UserDto(User user){
+    public UserDto(User user) {
         if (user.getId() != null){
-            this.id  = user.getId();
+            this.id = user.getId();
         }
         if (user.getUsername() != null){
             this.username = user.getUsername();
