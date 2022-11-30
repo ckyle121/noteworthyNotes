@@ -15,7 +15,7 @@ import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class NoteServiceImpl {
+public class NoteServiceImpl implements NoteService {
     @Autowired
     private UserRepository userRepository;
 
@@ -23,6 +23,7 @@ public class NoteServiceImpl {
     private NoteRepository noteRepository;
 
     //CRUD Routes for Note
+    @Override
     public List<NoteDto> getAllNotesByUserId(Long userId){
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()){
@@ -32,6 +33,7 @@ public class NoteServiceImpl {
         return Collections.emptyList();
     }
 
+    @Override
     public Optional<NoteDto> getNoteById(Long noteId) {
         Optional<Note> noteOptional = noteRepository.findById(noteId);
         if (noteOptional.isPresent()){
@@ -41,6 +43,7 @@ public class NoteServiceImpl {
     }
 
 
+    @Override
     @Transactional
     public void addNote(NoteDto noteDto, Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
@@ -50,12 +53,14 @@ public class NoteServiceImpl {
     }
 
 
+    @Override
     @Transactional
     public void deleteNoteById(Long noteId) {
         Optional<Note> noteOptional = noteRepository.findById(noteId);
         noteOptional.ifPresent(note -> noteRepository.delete(note));
     }
 
+    @Override
     @Transactional
     public void updateNoteById(NoteDto noteDto){
         Optional<Note> noteOptional = noteRepository.findById(noteDto.getId());
