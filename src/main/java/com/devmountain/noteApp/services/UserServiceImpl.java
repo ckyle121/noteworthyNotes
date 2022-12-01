@@ -11,13 +11,13 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
 
     @Override
     @Transactional
@@ -28,19 +28,20 @@ public class UserServiceImpl implements UserService {
         response.add("http://localhost:8080/login.html");
         return response;
     }
+
     @Override
     public List<String> userLogin(UserDto userDto){
         List<String> response = new ArrayList<>();
         Optional<User> userOptional = userRepository.findByUsername(userDto.getUsername());
         if (userOptional.isPresent()){
             if (passwordEncoder.matches(userDto.getPassword(), userOptional.get().getPassword())){
-                response.add("User Login Successful");
+                response.add("http://localhost:8080/home.html");
                 response.add(String.valueOf(userOptional.get().getId()));
             } else {
-                response.add("Username or Password incorrect");
+                response.add("Username or password incorrect");
             }
         } else {
-            response.add("Username or password Incorrect");
+            response.add("Username or password incorrect");
         }
         return response;
     }

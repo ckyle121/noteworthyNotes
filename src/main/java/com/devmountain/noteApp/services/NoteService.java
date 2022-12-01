@@ -7,10 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface NoteService {
-    //CRUD Routes for Note
     List<NoteDto> getAllNotesByUserId(Long userId);
-
-    Optional<NoteDto> getNoteById(Long noteId);
 
     @Transactional
     void addNote(NoteDto noteDto, Long userId);
@@ -20,4 +17,6 @@ public interface NoteService {
 
     @Transactional
     void updateNoteById(NoteDto noteDto);
+
+    Optional<NoteDto> getNoteById(Long noteId);
 }

@@ -10,19 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Service
 public class NoteServiceImpl implements NoteService {
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private NoteRepository noteRepository;
 
-    //CRUD Routes for Note
     @Override
     public List<NoteDto> getAllNotesByUserId(Long userId){
         Optional<User> userOptional = userRepository.findById(userId);
@@ -34,16 +32,6 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Optional<NoteDto> getNoteById(Long noteId) {
-        Optional<Note> noteOptional = noteRepository.findById(noteId);
-        if (noteOptional.isPresent()){
-            return Optional.of(new NoteDto(noteOptional.get()));
-        }
-        return Optional.empty();
-    }
-
-
-    @Override
     @Transactional
     public void addNote(NoteDto noteDto, Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
@@ -51,7 +39,6 @@ public class NoteServiceImpl implements NoteService {
         userOptional.ifPresent(note::setUser);
         noteRepository.saveAndFlush(note);
     }
-
 
     @Override
     @Transactional
@@ -62,7 +49,7 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     @Transactional
-    public void updateNoteById(NoteDto noteDto){
+    public void updateNoteById(NoteDto noteDto) {
         Optional<Note> noteOptional = noteRepository.findById(noteDto.getId());
         noteOptional.ifPresent(note -> {
             note.setBody(noteDto.getBody());
@@ -70,4 +57,12 @@ public class NoteServiceImpl implements NoteService {
         });
     }
 
+    @Override
+    public Optional<NoteDto> getNoteById(Long noteId) {
+        Optional<Note> noteOptional = noteRepository.findById(noteId);
+        if (noteOptional.isPresent()){
+            return Optional.of(new NoteDto(noteOptional.get()));
+        }
+        return Optional.empty();
+    }
 }
