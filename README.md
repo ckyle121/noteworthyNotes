@@ -7,3 +7,4 @@ A simple project created with Java backend and JavaScript frontend. Users can si
 * Springboot
 * Hibernate
 * JavaScript
+* PostgresSQL
