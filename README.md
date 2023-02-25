@@ -4,7 +4,7 @@ A simple project created with Java backend and JavaScript frontend. Users can si
 
 ## Technologies Used 
 * Java
-* Springboot
+* Spring Boot
 * Hibernate
 * JavaScript
 * PostgresSQL
